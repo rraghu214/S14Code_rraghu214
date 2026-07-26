@@ -211,13 +211,24 @@ S13_GATEWAY_PROVIDER=gemini GLC_BASE_URL=http://127.0.0.1:8111 \
   uv run python proofs/harness_run.py
 ```
 
-**Actual final result.** Gemini composed a `Column` of a `Text` heading, the
-`AnnotatedImage` (bound `src`→`/frame_url`, `alt`→`/title`, `boxes`→`/boxes`,
-`caption`→`/summary`), a `Text` subheading, and a `DataTable` of cross-camera
-matches — 5 proposed, 4 accepted, 1 rejected (the subheading used a literal
-string where `Text.text` requires a binding; the validator caught it and the
-rest of the surface still rendered). Full request/response, data model, and
-validator verdict: `proofs/annotated_image_surface.json`.
+**Actual final result.** Gemini composed a `Column` of a `Text` heading, two
+`Card`s (one wrapping a `Text` summary, one wrapping the `AnnotatedImage`,
+bound `src`→`/frame_url`, `boxes`→`/boxes`), and a third `Card` wrapping a
+`DataTable` of cross-camera matches — 8 proposed, 8 accepted, 0 rejected. Full
+request/response, data model, and validator verdict:
+`proofs/annotated_image_surface.json`.
+
+`frame_url` is a real stock photo (picsum.photos id 342 — a person carrying a
+cream backpack in a street scene), standing in for staged CCTV footage per
+§2.1's documented limitation; the box coordinates were placed by visually
+inspecting that exact photo, not by running a real detector — §2.3's
+documented fallback, named explicitly here rather than left implicit. An
+earlier version of this proof used a *different* stock photo (picsum id 1084,
+which turned out to be walruses, not a person) with box coordinates that were
+never checked against what the image actually showed; a reviewer caught the
+mismatch, which is why this note — and the requirement to verify an image's
+actual content before hand-authoring boxes for it — is now spelled out rather
+than assumed.
 
 **Adversarial failure, live against a running server** (`uv run s14code serve`,
 then `POST /v1/validate`) — three attacks, the same three invariants §1.5 names,

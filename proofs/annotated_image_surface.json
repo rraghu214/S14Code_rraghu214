@@ -1,7 +1,7 @@
 {
   "provider": "gemini_1",
   "model": "gemini-2.5-flash",
-  "raw": "{\"root\":\"root\",\"components\":[\n  {\"id\":\"root\",\"type\":\"Column\",\"children\":[\"incident_title\",\"annotated_frame\",\"cross_camera_heading\",\"cross_camera_table\"]},\n  {\"id\":\"incident_title\",\"type\":\"Text\",\"text\":{\"$bind\":\"/title\"},\"variant\":\"heading\"},\n  {\"id\":\"annotated_frame\",\"type\":\"AnnotatedImage\",\"src\":{\"$bind\":\"/frame_url\"},\"alt\":{\"$bind\":\"/title\"},\"boxes\":{\"$bind\":\"/boxes\"},\"caption\":{\"$bind\":\"/summary\"}},\n  {\"id\":\"cross_camera_heading\",\"type\":\"Text\",\"text\":\"Cross-Camera Matches\",\"variant\":\"subtitle\"},\n  {\"id\":\"cross_camera_table\",\"type\":\"DataTable\",\"columns\":\"camera,time,label\",\"rows\":{\"$bind\":\"/cross_camera_matches\"},\"sortable\":true,\"filterKey\":\"camera\"}\n]}",
+  "raw": "{\"root\":\"root\",\"components\":[\n  {\"id\":\"root\",\"type\":\"Column\",\"children\":[\"title_comp\",\"summary_card\",\"image_card\",\"matches_card\"]},\n  {\"id\":\"title_comp\",\"type\":\"Text\",\"text\":{\"$bind\":\"/title\"},\"variant\":\"heading\"},\n  {\"id\":\"summary_card\",\"type\":\"Card\",\"title\":\"Incident Summary\",\"children\":[\"summary_text_comp\"]},\n  {\"id\":\"summary_text_comp\",\"type\":\"Text\",\"text\":{\"$bind\":\"/summary\"},\"variant\":\"body\"},\n  {\"id\":\"image_card\",\"type\":\"Card\",\"title\":\"Incident Frame\",\"children\":[\"annotated_image_comp\"]},\n  {\"id\":\"annotated_image_comp\",\"type\":\"AnnotatedImage\",\"src\":{\"$bind\":\"/frame_url\"},\"alt\":\"Incident frame with detections\",\"boxes\":{\"$bind\":\"/boxes\"},\"caption\":\"Detected objects\"},\n  {\"id\":\"matches_card\",\"type\":\"Card\",\"title\":\"Cross-Camera Matches\",\"children\":[\"matches_table_comp\"]},\n  {\"id\":\"matches_table_comp\",\"type\":\"DataTable\",\"columns\":\"camera,time,label\",\"rows\":{\"$bind\":\"/cross_camera_matches\"},\"sortable\":true}\n]}",
   "task_instruction_names_annotated_image": false,
   "note": "the catalog manifest sent with every prompt necessarily lists AnnotatedImage by name (the model must be able to discover it exists); what matters is the TASK instruction above never tells the model to use it -- that choice is the model's own.",
   "surface_accepted": {
@@ -11,14 +11,14 @@
         "id": "root",
         "type": "Column",
         "children": [
-          "incident_title",
-          "annotated_frame",
-          "cross_camera_heading",
-          "cross_camera_table"
+          "title_comp",
+          "summary_card",
+          "image_card",
+          "matches_card"
         ]
       },
       {
-        "id": "incident_title",
+        "id": "title_comp",
         "type": "Text",
         "text": {
           "$bind": "/title"
@@ -26,53 +26,80 @@
         "variant": "heading"
       },
       {
-        "id": "annotated_frame",
+        "id": "summary_card",
+        "type": "Card",
+        "title": "Incident Summary",
+        "children": [
+          "summary_text_comp"
+        ]
+      },
+      {
+        "id": "summary_text_comp",
+        "type": "Text",
+        "text": {
+          "$bind": "/summary"
+        },
+        "variant": "body"
+      },
+      {
+        "id": "image_card",
+        "type": "Card",
+        "title": "Incident Frame",
+        "children": [
+          "annotated_image_comp"
+        ]
+      },
+      {
+        "id": "annotated_image_comp",
         "type": "AnnotatedImage",
         "src": {
           "$bind": "/frame_url"
         },
-        "alt": {
-          "$bind": "/title"
-        },
+        "alt": "Incident frame with detections",
         "boxes": {
           "$bind": "/boxes"
         },
-        "caption": {
-          "$bind": "/summary"
-        }
+        "caption": "Detected objects"
       },
       {
-        "id": "cross_camera_table",
+        "id": "matches_card",
+        "type": "Card",
+        "title": "Cross-Camera Matches",
+        "children": [
+          "matches_table_comp"
+        ]
+      },
+      {
+        "id": "matches_table_comp",
         "type": "DataTable",
         "columns": "camera,time,label",
         "rows": {
           "$bind": "/cross_camera_matches"
         },
-        "sortable": true,
-        "filterKey": "camera"
+        "sortable": true
       }
     ],
     "dataModel": {
       "title": "Incident evt_003 -- gate camera, 13:04",
       "camera": "gate",
       "time": "13:04",
-      "summary": "person lingered 40s near the gate before moving off-frame",
-      "frame_url": "https://picsum.photos/id/1084/640/400",
+      "summary": "person carrying a backpack detected near the gate camera",
+      "frame_url": "https://picsum.photos/id/342/640/400",
       "boxes": [
         {
-          "x": 38.0,
+          "x": 34.0,
           "y": 22.0,
-          "w": 21.0,
-          "h": 55.0,
+          "w": 27.0,
+          "h": 75.0,
           "label": "person",
           "confidence": 0.91
         },
         {
-          "x": 5.0,
-          "y": 60.0,
-          "w": 14.0,
-          "h": 18.0,
-          "label": "package",
+          "x": 39.0,
+          "y": 49.0,
+          "w": 19.0,
+          "h": 33.0,
+          "label": "backpack",
           "confidence": 0.74
         }
       ],
@@ -90,16 +117,7 @@
       ]
     }
   },
-  "rejections": [
-    {
-      "component_id": "cross_camera_heading",
-      "field": "text",
-      "invariant": "data-not-code",
-      "reason": "binding must be {'$bind': '/pointer'}"
-    }
-  ],
-  "dangling_child_refs": [
-    "cross_camera_heading"
-  ],
+  "rejections": [],
+  "dangling_child_refs": [],
   "used_annotated_image_unprompted": true
 }

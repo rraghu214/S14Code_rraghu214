@@ -31,15 +31,24 @@ from s13code.ui.validator import validate_surface
 OUT = Path(__file__).parent / "annotated_image_surface.json"
 BASE = os.getenv("GLC_BASE_URL", "http://127.0.0.1:8111").rstrip("/")
 
+# frame_url is a real stock photo (picsum.photos id 342: a person with a cream
+# backpack in a street scene), standing in for staged CCTV footage per §2.1's
+# documented limitation. The box coordinates were hand-placed by visually
+# inspecting that exact photo -- not run through a real detector -- which is
+# §2.3's documented fallback, named here rather than left implicit. A prior
+# version of this proof used a stock photo (walrus id 1084) with box
+# coordinates that were never checked against its actual content; this was
+# caught in PR review and fixed by verifying image content before authoring
+# boxes for it.
 DATA_MODEL = {
     "title": "Incident evt_003 -- gate camera, 13:04",
     "camera": "gate",
     "time": "13:04",
-    "summary": "person lingered 40s near the gate before moving off-frame",
-    "frame_url": "https://picsum.photos/id/1084/640/400",
+    "summary": "person carrying a backpack detected near the gate camera",
+    "frame_url": "https://picsum.photos/id/342/640/400",
     "boxes": [
-        {"x": 38.0, "y": 22.0, "w": 21.0, "h": 55.0, "label": "person", "confidence": 0.91},
-        {"x": 5.0, "y": 60.0, "w": 14.0, "h": 18.0, "label": "package", "confidence": 0.74},
+        {"x": 34.0, "y": 22.0, "w": 27.0, "h": 75.0, "label": "person", "confidence": 0.91},
+        {"x": 39.0, "y": 49.0, "w": 19.0, "h": 33.0, "label": "backpack", "confidence": 0.74},
     ],
     "cross_camera_matches": [
         {"camera": "driveway", "time": "13:02", "label": "person"},
@@ -73,8 +82,11 @@ def gateway_chat(prompt: str, system: str) -> dict:
     payload = {
         "messages": [{"role": "user", "content": prompt}],
         "system": system,
-        "max_tokens": 1500,
-        "temperature": 0,
+        "max_tokens": 2500,
+        # temperature=0 reproducibly truncated gemini-2.5-flash's output mid-JSON
+        # for this prompt (stop_reason="end_turn" despite the cut, twice in a
+        # row) -- a small nonzero temperature avoided it in testing.
+        "temperature": 0.2,
         "reasoning": "off",
         "agent": "s14_surface",
         "provider": os.getenv("S14_GATEWAY_PROVIDER", "gemini"),
