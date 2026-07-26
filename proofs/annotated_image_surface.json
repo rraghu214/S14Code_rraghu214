@@ -1,0 +1,105 @@
+{
+  "provider": "gemini_1",
+  "model": "gemini-2.5-flash",
+  "raw": "{\"root\":\"root\",\"components\":[\n  {\"id\":\"root\",\"type\":\"Column\",\"children\":[\"incident_title\",\"annotated_frame\",\"cross_camera_heading\",\"cross_camera_table\"]},\n  {\"id\":\"incident_title\",\"type\":\"Text\",\"text\":{\"$bind\":\"/title\"},\"variant\":\"heading\"},\n  {\"id\":\"annotated_frame\",\"type\":\"AnnotatedImage\",\"src\":{\"$bind\":\"/frame_url\"},\"alt\":{\"$bind\":\"/title\"},\"boxes\":{\"$bind\":\"/boxes\"},\"caption\":{\"$bind\":\"/summary\"}},\n  {\"id\":\"cross_camera_heading\",\"type\":\"Text\",\"text\":\"Cross-Camera Matches\",\"variant\":\"subtitle\"},\n  {\"id\":\"cross_camera_table\",\"type\":\"DataTable\",\"columns\":\"camera,time,label\",\"rows\":{\"$bind\":\"/cross_camera_matches\"},\"sortable\":true,\"filterKey\":\"camera\"}\n]}",
+  "task_instruction_names_annotated_image": false,
+  "note": "the catalog manifest sent with every prompt necessarily lists AnnotatedImage by name (the model must be able to discover it exists); what matters is the TASK instruction above never tells the model to use it -- that choice is the model's own.",
+  "surface_accepted": {
+    "root": "root",
+    "components": [
+      {
+        "id": "root",
+        "type": "Column",
+        "children": [
+          "incident_title",
+          "annotated_frame",
+          "cross_camera_heading",
+          "cross_camera_table"
+        ]
+      },
+      {
+        "id": "incident_title",
+        "type": "Text",
+        "text": {
+          "$bind": "/title"
+        },
+        "variant": "heading"
+      },
+      {
+        "id": "annotated_frame",
+        "type": "AnnotatedImage",
+        "src": {
+          "$bind": "/frame_url"
+        },
+        "alt": {
+          "$bind": "/title"
+        },
+        "boxes": {
+          "$bind": "/boxes"
+        },
+        "caption": {
+          "$bind": "/summary"
+        }
+      },
+      {
+        "id": "cross_camera_table",
+        "type": "DataTable",
+        "columns": "camera,time,label",
+        "rows": {
+          "$bind": "/cross_camera_matches"
+        },
+        "sortable": true,
+        "filterKey": "camera"
+      }
+    ],
+    "dataModel": {
+      "title": "Incident evt_003 -- gate camera, 13:04",
+      "camera": "gate",
+      "time": "13:04",
+      "summary": "person lingered 40s near the gate before moving off-frame",
+      "frame_url": "https://picsum.photos/id/1084/640/400",
+      "boxes": [
+        {
+          "x": 38.0,
+          "y": 22.0,
+          "w": 21.0,
+          "h": 55.0,
+          "label": "person",
+          "confidence": 0.91
+        },
+        {
+          "x": 5.0,
+          "y": 60.0,
+          "w": 14.0,
+          "h": 18.0,
+          "label": "package",
+          "confidence": 0.74
+        }
+      ],
+      "cross_camera_matches": [
+        {
+          "camera": "driveway",
+          "time": "13:02",
+          "label": "person"
+        },
+        {
+          "camera": "porch",
+          "time": "13:07",
+          "label": "person"
+        }
+      ]
+    }
+  },
+  "rejections": [
+    {
+      "component_id": "cross_camera_heading",
+      "field": "text",
+      "invariant": "data-not-code",
+      "reason": "binding must be {'$bind': '/pointer'}"
+    }
+  ],
+  "dangling_child_refs": [
+    "cross_camera_heading"
+  ],
+  "used_annotated_image_unprompted": true
+}
