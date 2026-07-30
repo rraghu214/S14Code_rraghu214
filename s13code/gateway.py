@@ -17,7 +17,16 @@ class GatewayClient:
         payload: dict[str, Any] = {
             "messages": [{"role": "user", "content": prompt}],
             "system": system,
-            "max_tokens": 700,
+            # S14 Part-2 addition (this branch only, not upstream): raised from the
+            # original 700. Confirmed via glc_v3's /v1/calls log: with full gateway
+            # auto-failover enabled (empty S13_GATEWAY_PROVIDER), cerebras'
+            # gpt-oss-120b (reasoning-capable) repeatedly consumed the full 700-token
+            # budget with 0 visible response chars on the larger CCTV content
+            # prompts, despite "reasoning": "off" — it returns 200 OK, so no
+            # per-request failover ever triggers. A larger budget leaves headroom for
+            # that without changing behavior for providers that were already fine at
+            # 700 (the old default remains the floor via the env var below).
+            "max_tokens": int(os.getenv("S13_ANSWER_MAX_TOKENS", "700")),
             "temperature": 0,
             "reasoning": "off",
             "agent": "s13_answer",

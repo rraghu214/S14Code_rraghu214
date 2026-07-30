@@ -234,3 +234,15 @@ async def app_viewer():
     if not path.exists():
         raise HTTPException(500, "app viewer missing")
     return path.read_text()
+
+
+@router.get("/investigator", response_class=HTMLResponse)
+@router.get("/investigator/", response_class=HTMLResponse)
+async def cctv_investigator():
+    """S14 Part 2: the CCTV Incident Investigator UI-only app shell, forked
+    from app.html with real Image/AnnotatedImage renderers and a genuine
+    /v1/action approval call wired in. See s14_assignment_FINAL_v2.md §2.5."""
+    path = Path(__file__).parent / "client" / "cctv_app.html"
+    if not path.exists():
+        raise HTTPException(500, "cctv investigator viewer missing")
+    return path.read_text(encoding="utf-8")

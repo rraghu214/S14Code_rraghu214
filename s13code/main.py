@@ -14,6 +14,7 @@ from pathlib import Path
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.staticfiles import StaticFiles
 
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
@@ -108,6 +109,13 @@ app = FastAPI(title="S13Code — Live Graph, Memory, Semantic Chunking and A2A",
 app.include_router(routes.router)
 app.include_router(a2a_routes.router)
 app.include_router(ui_router)
+
+# S14 Part-2 addition (this branch only, not upstream): serve the staged CCTV
+# frame images + events.json as static assets, so AnnotatedImage.src resolves
+# to a URL the browser can actually load from this same deployed service.
+_CCTV_DIR = Path(__file__).parent / "ui" / "client" / "cctv"
+if _CCTV_DIR.exists():
+    app.mount("/cctv", StaticFiles(directory=str(_CCTV_DIR)), name="cctv-assets")
 
 
 @app.get("/healthz")

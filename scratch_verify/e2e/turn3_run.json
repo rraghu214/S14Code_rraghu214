@@ -1,0 +1,705 @@
+{
+  "run_id": "run-decd402098dc",
+  "status": "completed",
+  "answer": "",
+  "provider": "gemini_1",
+  "model": "gemini-2.5-flash",
+  "graph": {
+    "finished": true,
+    "nodes": {
+      "content": {
+        "id": "content",
+        "skill": "content",
+        "input": {
+          "query": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices."
+        },
+        "metadata": {
+          "agent": "content"
+        },
+        "state": "succeeded",
+        "result": {
+          "structured": {
+            "approvalCard": {
+              "params": {
+                "action": "notify",
+                "event_id": "evt_001",
+                "camera": "gate",
+                "time": "2026-04-23T12:14:03"
+              },
+              "summary": "A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03)."
+            }
+          },
+          "text": "",
+          "raw": "{\n  \"approvalCard\": {\n    \"params\": {\n      \"action\": \"notify\",\n      \"event_id\": \"evt_001\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:14:03\"\n    },\n    \"summary\": \"A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03).\"\n  }\n}",
+          "provider": "cerebras",
+          "model": "gpt-oss-120b",
+          "agent": "content"
+        }
+      },
+      "surface": {
+        "id": "surface",
+        "skill": "compose_surface",
+        "input": {
+          "query": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices."
+        },
+        "metadata": {
+          "agent": "ui_composer"
+        },
+        "state": "succeeded",
+        "result": {
+          "agent": "ui_composer",
+          "provider": "gemini_1",
+          "model": "gemini-2.5-flash",
+          "raw_surface": "{\"root\":\"approval_card\",\"components\":[{\"id\":\"approval_card\",\"type\":\"ApprovalCard\",\"summary\":{\"$bind\":\"/approvalCard/summary\"},\"params\":{\"$bind\":\"/approvalCard/params\"},\"confirm\":{\"action\":\"approve\"},\"reject\":{\"action\":\"reject\"}}]}",
+          "surface": {
+            "root": "approval_card",
+            "components": [
+              {
+                "id": "approval_card",
+                "type": "ApprovalCard",
+                "summary": {
+                  "$bind": "/approvalCard/summary"
+                },
+                "params": {
+                  "$bind": "/approvalCard/params"
+                },
+                "confirm": {
+                  "action": "approve"
+                },
+                "reject": {
+                  "action": "reject"
+                }
+              }
+            ],
+            "dataModel": {
+              "title": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+              "goal": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+              "summary": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+              "results": [],
+              "items": [],
+              "metrics": [],
+              "spark": [],
+              "table_rows": [],
+              "item_count": 0,
+              "source_count": 0,
+              "subjects": [],
+              "timeline": [
+                {
+                  "time": "894",
+                  "label": "run_started"
+                },
+                {
+                  "time": "895",
+                  "label": "graph_patched"
+                },
+                {
+                  "time": "896",
+                  "label": "task_started content"
+                },
+                {
+                  "time": "897",
+                  "label": "task_succeeded content"
+                },
+                {
+                  "time": "898",
+                  "label": "graph_patched"
+                },
+                {
+                  "time": "899",
+                  "label": "task_started surface"
+                }
+              ],
+              "progress_value": 1,
+              "progress_max": 2,
+              "approvalCard": {
+                "params": {
+                  "action": "notify",
+                  "event_id": "evt_001",
+                  "camera": "gate",
+                  "time": "2026-04-23T12:14:03"
+                },
+                "summary": "A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03)."
+              },
+              "id": "evt_001",
+              "camera": "gate",
+              "time": "2026-04-23T12:14:03",
+              "motion_zone": "entrance",
+              "severity": "medium",
+              "frame_url": "/cctv/frames/e1.jpg",
+              "detection_source": "vision-model (gemini-2.5-flash)",
+              "boxes": [
+                {
+                  "x": 16.5,
+                  "y": 45.0,
+                  "w": 9.5,
+                  "h": 40.0,
+                  "label": "soldier",
+                  "confidence": 0.95
+                },
+                {
+                  "x": 70.0,
+                  "y": 45.0,
+                  "w": 9.0,
+                  "h": 40.0,
+                  "label": "soldier",
+                  "confidence": 0.95
+                },
+                {
+                  "x": 28.0,
+                  "y": 45.0,
+                  "w": 40.0,
+                  "h": 30.0,
+                  "label": "gate",
+                  "confidence": 0.98
+                },
+                {
+                  "x": 35.0,
+                  "y": 20.0,
+                  "w": 55.0,
+                  "h": 25.0,
+                  "label": "airplane",
+                  "confidence": 0.9
+                },
+                {
+                  "x": 68.0,
+                  "y": 10.0,
+                  "w": 28.0,
+                  "h": 50.0,
+                  "label": "building",
+                  "confidence": 0.9
+                },
+                {
+                  "x": 10.0,
+                  "y": 60.0,
+                  "w": 5.0,
+                  "h": 15.0,
+                  "label": "trash can",
+                  "confidence": 0.85
+                }
+              ],
+              "action": "notify",
+              "event_id": "evt_001"
+            }
+          },
+          "data_model": {
+            "title": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+            "goal": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+            "summary": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+            "results": [],
+            "items": [],
+            "metrics": [],
+            "spark": [],
+            "table_rows": [],
+            "item_count": 0,
+            "source_count": 0,
+            "subjects": [],
+            "timeline": [
+              {
+                "time": "894",
+                "label": "run_started"
+              },
+              {
+                "time": "895",
+                "label": "graph_patched"
+              },
+              {
+                "time": "896",
+                "label": "task_started content"
+              },
+              {
+                "time": "897",
+                "label": "task_succeeded content"
+              },
+              {
+                "time": "898",
+                "label": "graph_patched"
+              },
+              {
+                "time": "899",
+                "label": "task_started surface"
+              }
+            ],
+            "progress_value": 1,
+            "progress_max": 2,
+            "approvalCard": {
+              "params": {
+                "action": "notify",
+                "event_id": "evt_001",
+                "camera": "gate",
+                "time": "2026-04-23T12:14:03"
+              },
+              "summary": "A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03)."
+            },
+            "id": "evt_001",
+            "camera": "gate",
+            "time": "2026-04-23T12:14:03",
+            "motion_zone": "entrance",
+            "severity": "medium",
+            "frame_url": "/cctv/frames/e1.jpg",
+            "detection_source": "vision-model (gemini-2.5-flash)",
+            "boxes": [
+              {
+                "x": 16.5,
+                "y": 45.0,
+                "w": 9.5,
+                "h": 40.0,
+                "label": "soldier",
+                "confidence": 0.95
+              },
+              {
+                "x": 70.0,
+                "y": 45.0,
+                "w": 9.0,
+                "h": 40.0,
+                "label": "soldier",
+                "confidence": 0.95
+              },
+              {
+                "x": 28.0,
+                "y": 45.0,
+                "w": 40.0,
+                "h": 30.0,
+                "label": "gate",
+                "confidence": 0.98
+              },
+              {
+                "x": 35.0,
+                "y": 20.0,
+                "w": 55.0,
+                "h": 25.0,
+                "label": "airplane",
+                "confidence": 0.9
+              },
+              {
+                "x": 68.0,
+                "y": 10.0,
+                "w": 28.0,
+                "h": 50.0,
+                "label": "building",
+                "confidence": 0.9
+              },
+              {
+                "x": 10.0,
+                "y": 60.0,
+                "w": 5.0,
+                "h": 15.0,
+                "label": "trash can",
+                "confidence": 0.85
+              }
+            ],
+            "action": "notify",
+            "event_id": "evt_001"
+          },
+          "validator": {
+            "proposed": 1,
+            "accepted": 1,
+            "rejected": 0,
+            "ok": true,
+            "rejections": [],
+            "dangling_child_refs": [],
+            "component_types": [
+              "ApprovalCard"
+            ],
+            "component_count": 1
+          },
+          "upstream_used": [],
+          "parse_ok": true
+        }
+      }
+    },
+    "edges": [
+      [
+        "content",
+        "surface"
+      ]
+    ]
+  },
+  "trace": {
+    "planner": {
+      "mode": "deterministic"
+    },
+    "agents": {
+      "content": {
+        "agent": "content",
+        "skill": "content",
+        "state": "succeeded",
+        "provider": "cerebras",
+        "model": "gpt-oss-120b"
+      },
+      "surface": {
+        "agent": "ui_composer",
+        "skill": "compose_surface",
+        "state": "succeeded",
+        "provider": "gemini_1",
+        "model": "gemini-2.5-flash"
+      }
+    }
+  },
+  "events": [
+    {
+      "sequence": 894,
+      "kind": "run_started",
+      "node_id": null,
+      "payload": {}
+    },
+    {
+      "sequence": 895,
+      "kind": "graph_patched",
+      "node_id": null,
+      "payload": {
+        "trigger_event": 894,
+        "reason": "first frontier selected for compose_answer",
+        "add": [
+          "content"
+        ],
+        "connect": [],
+        "cancel": [],
+        "wait": [],
+        "resume": [],
+        "finish": false
+      }
+    },
+    {
+      "sequence": 896,
+      "kind": "task_started",
+      "node_id": "content",
+      "payload": {
+        "skill": "content",
+        "agent": "content"
+      }
+    },
+    {
+      "sequence": 897,
+      "kind": "task_succeeded",
+      "node_id": "content",
+      "payload": {
+        "structured": {
+          "approvalCard": {
+            "params": {
+              "action": "notify",
+              "event_id": "evt_001",
+              "camera": "gate",
+              "time": "2026-04-23T12:14:03"
+            },
+            "summary": "A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03)."
+          }
+        },
+        "text": "",
+        "raw": "{\n  \"approvalCard\": {\n    \"params\": {\n      \"action\": \"notify\",\n      \"event_id\": \"evt_001\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:14:03\"\n    },\n    \"summary\": \"A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03).\"\n  }\n}",
+        "provider": "cerebras",
+        "model": "gpt-oss-120b",
+        "agent": "content"
+      }
+    },
+    {
+      "sequence": 898,
+      "kind": "graph_patched",
+      "node_id": null,
+      "payload": {
+        "trigger_event": 897,
+        "reason": "content produced; compose a validated A2UI surface from the real outcome",
+        "add": [
+          "surface"
+        ],
+        "connect": [
+          [
+            "content",
+            "surface"
+          ]
+        ],
+        "cancel": [],
+        "wait": [],
+        "resume": [],
+        "finish": false
+      }
+    },
+    {
+      "sequence": 899,
+      "kind": "task_started",
+      "node_id": "surface",
+      "payload": {
+        "skill": "compose_surface",
+        "agent": "ui_composer"
+      }
+    },
+    {
+      "sequence": 900,
+      "kind": "task_succeeded",
+      "node_id": "surface",
+      "payload": {
+        "agent": "ui_composer",
+        "provider": "gemini_1",
+        "model": "gemini-2.5-flash",
+        "raw_surface": "{\"root\":\"approval_card\",\"components\":[{\"id\":\"approval_card\",\"type\":\"ApprovalCard\",\"summary\":{\"$bind\":\"/approvalCard/summary\"},\"params\":{\"$bind\":\"/approvalCard/params\"},\"confirm\":{\"action\":\"approve\"},\"reject\":{\"action\":\"reject\"}}]}",
+        "surface": {
+          "root": "approval_card",
+          "components": [
+            {
+              "id": "approval_card",
+              "type": "ApprovalCard",
+              "summary": {
+                "$bind": "/approvalCard/summary"
+              },
+              "params": {
+                "$bind": "/approvalCard/params"
+              },
+              "confirm": {
+                "action": "approve"
+              },
+              "reject": {
+                "action": "reject"
+              }
+            }
+          ],
+          "dataModel": {
+            "title": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+            "goal": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+            "summary": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+            "results": [],
+            "items": [],
+            "metrics": [],
+            "spark": [],
+            "table_rows": [],
+            "item_count": 0,
+            "source_count": 0,
+            "subjects": [],
+            "timeline": [
+              {
+                "time": "894",
+                "label": "run_started"
+              },
+              {
+                "time": "895",
+                "label": "graph_patched"
+              },
+              {
+                "time": "896",
+                "label": "task_started content"
+              },
+              {
+                "time": "897",
+                "label": "task_succeeded content"
+              },
+              {
+                "time": "898",
+                "label": "graph_patched"
+              },
+              {
+                "time": "899",
+                "label": "task_started surface"
+              }
+            ],
+            "progress_value": 1,
+            "progress_max": 2,
+            "approvalCard": {
+              "params": {
+                "action": "notify",
+                "event_id": "evt_001",
+                "camera": "gate",
+                "time": "2026-04-23T12:14:03"
+              },
+              "summary": "A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03)."
+            },
+            "id": "evt_001",
+            "camera": "gate",
+            "time": "2026-04-23T12:14:03",
+            "motion_zone": "entrance",
+            "severity": "medium",
+            "frame_url": "/cctv/frames/e1.jpg",
+            "detection_source": "vision-model (gemini-2.5-flash)",
+            "boxes": [
+              {
+                "x": 16.5,
+                "y": 45.0,
+                "w": 9.5,
+                "h": 40.0,
+                "label": "soldier",
+                "confidence": 0.95
+              },
+              {
+                "x": 70.0,
+                "y": 45.0,
+                "w": 9.0,
+                "h": 40.0,
+                "label": "soldier",
+                "confidence": 0.95
+              },
+              {
+                "x": 28.0,
+                "y": 45.0,
+                "w": 40.0,
+                "h": 30.0,
+                "label": "gate",
+                "confidence": 0.98
+              },
+              {
+                "x": 35.0,
+                "y": 20.0,
+                "w": 55.0,
+                "h": 25.0,
+                "label": "airplane",
+                "confidence": 0.9
+              },
+              {
+                "x": 68.0,
+                "y": 10.0,
+                "w": 28.0,
+                "h": 50.0,
+                "label": "building",
+                "confidence": 0.9
+              },
+              {
+                "x": 10.0,
+                "y": 60.0,
+                "w": 5.0,
+                "h": 15.0,
+                "label": "trash can",
+                "confidence": 0.85
+              }
+            ],
+            "action": "notify",
+            "event_id": "evt_001"
+          }
+        },
+        "data_model": {
+          "title": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+          "goal": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+          "summary": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.\nSo far the user picked: \"evt_001: Two armed soldiers at gate (12:14, medium severity)\", then \"notify\".\n\nThe user wants to flag this incident for follow-up:\n{\n  \"id\": \"evt_001\",\n  \"camera\": \"gate\",\n  \"time\": \"2026-04-23T12:14:03\",\n  \"motion_zone\": \"entrance\",\n  \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n  \"severity\": \"medium\",\n  \"frame_url\": \"/cctv/frames/e1.jpg\",\n  \"detection_source\": \"vision-model (gemini-2.5-flash)\",\n  \"boxes\": [\n    {\n      \"x\": 16.5,\n      \"y\": 45.0,\n      \"w\": 9.5,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 70.0,\n      \"y\": 45.0,\n      \"w\": 9.0,\n      \"h\": 40.0,\n      \"label\": \"soldier\",\n      \"confidence\": 0.95\n    },\n    {\n      \"x\": 28.0,\n      \"y\": 45.0,\n      \"w\": 40.0,\n      \"h\": 30.0,\n      \"label\": \"gate\",\n      \"confidence\": 0.98\n    },\n    {\n      \"x\": 35.0,\n      \"y\": 20.0,\n      \"w\": 55.0,\n      \"h\": 25.0,\n      \"label\": \"airplane\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 68.0,\n      \"y\": 10.0,\n      \"w\": 28.0,\n      \"h\": 50.0,\n      \"label\": \"building\",\n      \"confidence\": 0.9\n    },\n    {\n      \"x\": 10.0,\n      \"y\": 60.0,\n      \"w\": 5.0,\n      \"h\": 15.0,\n      \"label\": \"trash can\",\n      \"confidence\": 0.85\n    }\n  ]\n}\n\nCompose an ApprovalCard whose params is EXACTLY {\"action\":\"notify\",\"event_id\":\"evt_001\",\"camera\":\"gate\",\"time\":\"2026-04-23T12:14:03\"} and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.",
+          "results": [],
+          "items": [],
+          "metrics": [],
+          "spark": [],
+          "table_rows": [],
+          "item_count": 0,
+          "source_count": 0,
+          "subjects": [],
+          "timeline": [
+            {
+              "time": "894",
+              "label": "run_started"
+            },
+            {
+              "time": "895",
+              "label": "graph_patched"
+            },
+            {
+              "time": "896",
+              "label": "task_started content"
+            },
+            {
+              "time": "897",
+              "label": "task_succeeded content"
+            },
+            {
+              "time": "898",
+              "label": "graph_patched"
+            },
+            {
+              "time": "899",
+              "label": "task_started surface"
+            }
+          ],
+          "progress_value": 1,
+          "progress_max": 2,
+          "approvalCard": {
+            "params": {
+              "action": "notify",
+              "event_id": "evt_001",
+              "camera": "gate",
+              "time": "2026-04-23T12:14:03"
+            },
+            "summary": "A notification will be sent for incident evt_001 (gate, 2026-04-23T12:14:03)."
+          },
+          "id": "evt_001",
+          "camera": "gate",
+          "time": "2026-04-23T12:14:03",
+          "motion_zone": "entrance",
+          "severity": "medium",
+          "frame_url": "/cctv/frames/e1.jpg",
+          "detection_source": "vision-model (gemini-2.5-flash)",
+          "boxes": [
+            {
+              "x": 16.5,
+              "y": 45.0,
+              "w": 9.5,
+              "h": 40.0,
+              "label": "soldier",
+              "confidence": 0.95
+            },
+            {
+              "x": 70.0,
+              "y": 45.0,
+              "w": 9.0,
+              "h": 40.0,
+              "label": "soldier",
+              "confidence": 0.95
+            },
+            {
+              "x": 28.0,
+              "y": 45.0,
+              "w": 40.0,
+              "h": 30.0,
+              "label": "gate",
+              "confidence": 0.98
+            },
+            {
+              "x": 35.0,
+              "y": 20.0,
+              "w": 55.0,
+              "h": 25.0,
+              "label": "airplane",
+              "confidence": 0.9
+            },
+            {
+              "x": 68.0,
+              "y": 10.0,
+              "w": 28.0,
+              "h": 50.0,
+              "label": "building",
+              "confidence": 0.9
+            },
+            {
+              "x": 10.0,
+              "y": 60.0,
+              "w": 5.0,
+              "h": 15.0,
+              "label": "trash can",
+              "confidence": 0.85
+            }
+          ],
+          "action": "notify",
+          "event_id": "evt_001"
+        },
+        "validator": {
+          "proposed": 1,
+          "accepted": 1,
+          "rejected": 0,
+          "ok": true,
+          "rejections": [],
+          "dangling_child_refs": [],
+          "component_types": [
+            "ApprovalCard"
+          ],
+          "component_count": 1
+        },
+        "upstream_used": [],
+        "parse_ok": true
+      }
+    },
+    {
+      "sequence": 901,
+      "kind": "graph_patched",
+      "node_id": null,
+      "payload": {
+        "trigger_event": 900,
+        "reason": "Gemini composed a surface the S14 validator accepted",
+        "add": [],
+        "connect": [],
+        "cancel": [],
+        "wait": [],
+        "resume": [],
+        "finish": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+[
+  {
+    "id": "evt_001",
+    "camera": "gate",
+    "time": "2026-04-23T12:14:03",
+    "motion_zone": "entrance",
+    "summary": "Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.",
+    "severity": "medium",
+    "frame_url": "/cctv/frames/e1.jpg",
+    "detection_source": "vision-model (gemini-2.5-flash)",
+    "boxes": [
+      {
+        "x": 16.5,
+        "y": 45.0,
+        "w": 9.5,
+        "h": 40.0,
+        "label": "soldier",
+        "confidence": 0.95
+      },
+      {
+        "x": 70.0,
+        "y": 45.0,
+        "w": 9.0,
+        "h": 40.0,
+        "label": "soldier",
+        "confidence": 0.95
+      },
+      {
+        "x": 28.0,
+        "y": 45.0,
+        "w": 40.0,
+        "h": 30.0,
+        "label": "gate",
+        "confidence": 0.98
+      },
+      {
+        "x": 35.0,
+        "y": 20.0,
+        "w": 55.0,
+        "h": 25.0,
+        "label": "airplane",
+        "confidence": 0.9
+      },
+      {
+        "x": 68.0,
+        "y": 10.0,
+        "w": 28.0,
+        "h": 50.0,
+        "label": "building",
+        "confidence": 0.9
+      },
+      {
+        "x": 10.0,
+        "y": 60.0,
+        "w": 5.0,
+        "h": 15.0,
+        "label": "trash can",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "id": "evt_002",
+    "camera": "driveway",
+    "time": "2026-04-23T12:14:28",
+    "motion_zone": "path",
+    "summary": "A person with a leg amputation is walking with crutches on a covered walkway next to a building and some plants.",
+    "severity": "low",
+    "frame_url": "/cctv/frames/e2.jpg",
+    "detection_source": "vision-model (github/gpt-4.1-mini, gemini rate-limited)",
+    "boxes": [
+      {
+        "x": 50,
+        "y": 20,
+        "w": 25,
+        "h": 60,
+        "label": "person",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": "evt_003",
+    "camera": "porch",
+    "time": "2026-04-23T12:14:52",
+    "motion_zone": "door",
+    "summary": "The CCTV frame shows the front porch of a house with bushes, two trees, and stairs leading up to the door.",
+    "severity": "low",
+    "frame_url": "/cctv/frames/e3.jpg",
+    "detection_source": "vision-model (github/gpt-4.1-mini, gemini rate-limited)",
+    "boxes": [
+      {
+        "x": 0,
+        "y": 65,
+        "w": 100,
+        "h": 35,
+        "label": "bush",
+        "confidence": 0.9
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "w": 15,
+        "h": 65,
+        "label": "tree",
+        "confidence": 0.9
+      },
+      {
+        "x": 65,
+        "y": 40,
+        "w": 15,
+        "h": 40,
+        "label": "tree",
+        "confidence": 0.9
+      },
+      {
+        "x": 15,
+        "y": 0,
+        "w": 70,
+        "h": 65,
+        "label": "house",
+        "confidence": 0.95
+      },
+      {
+        "x": 60,
+        "y": 50,
+        "w": 25,
+        "h": 15,
+        "label": "stairs",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "evt_004",
+    "camera": "porch",
+    "time": "2026-04-23T12:15:41",
+    "motion_zone": "door",
+    "summary": "An elderly woman is standing in a doorway, holding the door frame with both hands and smiling.",
+    "severity": "low",
+    "frame_url": "/cctv/frames/e4.jpg",
+    "detection_source": "vision-model (github/gpt-4.1-mini, gemini rate-limited)",
+    "boxes": [
+      {
+        "x": 30,
+        "y": 15,
+        "w": 40,
+        "h": 70,
+        "label": "person",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": "evt_005",
+    "camera": "driveway",
+    "time": "2026-04-23T12:16:08",
+    "motion_zone": "path",
+    "summary": "A person is walking away from the camera in a covered walkway or underpass.",
+    "severity": "low",
+    "frame_url": "/cctv/frames/e5.jpg",
+    "detection_source": "vision-model (gemini-2.5-flash, re-run after gpt-4.1-mini mislocalized)",
+    "boxes": [
+      {
+        "x": 54,
+        "y": 28,
+        "w": 16,
+        "h": 48,
+        "label": "person",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": "evt_006",
+    "camera": "gate",
+    "time": "2026-04-23T12:16:32",
+    "motion_zone": "exit",
+    "summary": "A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.",
+    "severity": "low",
+    "frame_url": "/cctv/frames/e6.jpg",
+    "detection_source": "hand-authored (both gpt-4.1-mini and gemini-2.5-flash mislocalized this low-light figure; box measured against a percentage grid and visually verified)",
+    "boxes": [
+      {
+        "x": 64.3,
+        "y": 42.5,
+        "w": 4.8,
+        "h": 15.5,
+        "label": "person",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "evt_007",
+    "camera": "backyard",
+    "time": "2026-04-23T14:02:11",
+    "motion_zone": "fence",
+    "summary": "A cat is lying on the grass in a backyard area with a fence in the foreground and some stone steps in the background.",
+    "severity": "low",
+    "frame_url": "/cctv/frames/e7.jpg",
+    "detection_source": "vision-model (github/gpt-4.1-mini, gemini rate-limited)",
+    "boxes": [
+      {
+        "x": 42,
+        "y": 55,
+        "w": 12,
+        "h": 10,
+        "label": "cat",
+        "confidence": 0.95
+      }
+    ]
+  }
+]

@@ -1,0 +1,236 @@
+{
+  "run_id": "run-283304eb1b25",
+  "finished": true,
+  "surface": {
+    "root": "root",
+    "components": [
+      {
+        "id": "heading",
+        "type": "Text",
+        "variant": "heading",
+        "text": {
+          "$bind": "/title"
+        }
+      },
+      {
+        "id": "body",
+        "type": "Text",
+        "variant": "body",
+        "text": {
+          "$bind": "/summary"
+        }
+      },
+      {
+        "id": "cardsColumn",
+        "type": "Column",
+        "children": [
+          "card0",
+          "card1"
+        ]
+      },
+      {
+        "id": "col0",
+        "type": "Column",
+        "children": [
+          "cam0",
+          "time0",
+          "sum0",
+          "stat0",
+          "btn0"
+        ]
+      },
+      {
+        "id": "cam0",
+        "type": "Text",
+        "variant": "caption",
+        "text": {
+          "$bind": "/incidents/0/camera"
+        }
+      },
+      {
+        "id": "time0",
+        "type": "Text",
+        "variant": "caption",
+        "text": {
+          "$bind": "/incidents/0/time"
+        }
+      },
+      {
+        "id": "sum0",
+        "type": "Text",
+        "variant": "body",
+        "text": {
+          "$bind": "/incidents/0/summary"
+        }
+      },
+      {
+        "id": "stat0",
+        "type": "StatTile",
+        "label": "Severity",
+        "value": {
+          "$bind": "/incidents/0/severity"
+        },
+        "tone": "warn"
+      },
+      {
+        "id": "btn0",
+        "type": "Button",
+        "label": "Select evt_001",
+        "onPress": {
+          "action": "request_data"
+        }
+      },
+      {
+        "id": "card0",
+        "type": "Card",
+        "title": "Incident",
+        "children": [
+          "col0"
+        ]
+      },
+      {
+        "id": "col1",
+        "type": "Column",
+        "children": [
+          "cam1",
+          "time1",
+          "sum1",
+          "stat1",
+          "btn1"
+        ]
+      },
+      {
+        "id": "cam1",
+        "type": "Text",
+        "variant": "caption",
+        "text": {
+          "$bind": "/incidents/1/camera"
+        }
+      },
+      {
+        "id": "time1",
+        "type": "Text",
+        "variant": "caption",
+        "text": {
+          "$bind": "/incidents/1/time"
+        }
+      },
+      {
+        "id": "sum1",
+        "type": "Text",
+        "variant": "body",
+        "text": {
+          "$bind": "/incidents/1/summary"
+        }
+      },
+      {
+        "id": "stat1",
+        "type": "StatTile",
+        "label": "Severity",
+        "value": {
+          "$bind": "/incidents/1/severity"
+        },
+        "tone": "good"
+      },
+      {
+        "id": "btn1",
+        "type": "Button",
+        "label": "Select evt_006",
+        "onPress": {
+          "action": "request_data"
+        }
+      },
+      {
+        "id": "card1",
+        "type": "Card",
+        "title": "Incident",
+        "children": [
+          "col1"
+        ]
+      }
+    ],
+    "dataModel": {
+      "title": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.",
+      "goal": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.",
+      "summary": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.",
+      "results": [],
+      "items": [],
+      "metrics": [],
+      "spark": [],
+      "table_rows": [],
+      "item_count": 0,
+      "source_count": 0,
+      "subjects": [
+        "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
+        "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+      ],
+      "timeline": [
+        {
+          "time": "947",
+          "label": "run_started"
+        },
+        {
+          "time": "948",
+          "label": "graph_patched"
+        },
+        {
+          "time": "949",
+          "label": "task_started content"
+        },
+        {
+          "time": "950",
+          "label": "task_succeeded content"
+        },
+        {
+          "time": "951",
+          "label": "graph_patched"
+        },
+        {
+          "time": "952",
+          "label": "task_started surface"
+        }
+      ],
+      "progress_value": 1,
+      "progress_max": 2,
+      "choices": [
+        {
+          "id": "evt_001",
+          "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+        },
+        {
+          "id": "evt_006",
+          "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+        }
+      ],
+      "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
+      "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low",
+      "incidents": [
+        {
+          "id": "evt_001",
+          "camera": "gate",
+          "time": "2026-04-23T12:14:03",
+          "motion_zone": "entrance",
+          "summary": "Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.",
+          "severity": "medium"
+        },
+        {
+          "id": "evt_006",
+          "camera": "gate",
+          "time": "2026-04-23T12:16:32",
+          "motion_zone": "exit",
+          "summary": "A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.",
+          "severity": "low"
+        }
+      ],
+      "id": "evt_001",
+      "camera": "gate",
+      "time": "2026-04-23T12:14:03",
+      "motion_zone": "entrance",
+      "severity": "medium"
+    }
+  },
+  "component_count": 17,
+  "clean": true,
+  "provider": "openrouter",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free"
+}
