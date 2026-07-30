@@ -716,6 +716,11 @@ class S13Runtime:
                        "temperature": float(os.getenv("S14_SURFACE_TEMPERATURE", "0.2")),
                        "reasoning": "off", "agent": "s14_compose_surface",
                        "provider": os.getenv("S13_GATEWAY_PROVIDER", "gemini")}
+            # No model override here by design: glc_v3 owns provider/model
+            # configuration (glc/providers.py:1176's GEMINI_MODEL env var).
+            # S14Code stays generic — it asks for "gemini" (or, with
+            # S13_GATEWAY_PROVIDER unset/empty, no preference at all) and
+            # lets glc_v3 decide which underlying model that resolves to.
             # S14 Part-2 addition (this branch only, not upstream): retry on an
             # incomplete/truncated surface. Confirmed live (glc_v3 /v1/calls log):
             # gemini-2.5-flash returns HTTP 200 with stop_reason "end_turn" after

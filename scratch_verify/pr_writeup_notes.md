@@ -98,6 +98,42 @@ different ways across three different providers, live:
   the only one of 7 frames not from a live model call; `events.json` records
   `detection_source` per event so this is traceable, not hidden.
 
+## 6.5. gemini-2.5-flash -> gemini-3.1-flash-lite-preview (post-testing finding)
+
+While debugging attempt #3's truncation bug, live testing surfaced something
+beyond a single-request fix: `gemini-2.5-flash` calls were consistently slow
+(26-28s per compose_surface call) on top of truncating. A teammate's tip to
+try `gemini-3.1-flash-lite-preview` was verified directly (not taken on
+faith) — a bare `/v1/chat` call confirmed it's a real, reachable model, then
+the full 3-turn CCTV flow was re-run against it end-to-end.
+
+**Result: every call succeeded on the first attempt, no retries needed,
+1.3-2.4s latency** (vs. 26-28s and frequent truncation on gemini-2.5-flash) —
+for the exact same prompts that had just failed.
+
+**First attempt at wiring this in was architecturally wrong** and worth
+naming: patched a `S14_SURFACE_MODEL` env-var override into only ONE of
+S14Code's two independent LLM call sites (`runtime.py`'s
+`_gateway_surface_call`), missing the other (`gateway.py`'s
+`GatewayClient.complete()`, used by the `content` role). That caused a
+turn to fail entirely when `content`'s un-overridden call hit gemini's
+quota with no failover (had also pinned `S13_GATEWAY_PROVIDER=gemini` to
+isolate the model test, removing the safety net).
+
+**Correct fix, once actually asked "why does S14Code even talk to the model
+directly — isn't that glc_v3's job?"**: `glc_v3/providers.py:1176` already
+reads `GEMINI_MODEL` (env var, default `gemini-2.5-flash`) to pick its own
+default model for the gemini provider slot. The right layering is: glc_v3
+owns provider/model configuration; S14Code stays fully generic (asks for
+`provider=""`, i.e. glc_v3's own native full failover, no model specified
+anywhere in S14Code's payloads). Set `GEMINI_MODEL=gemini-3.1-flash-lite-preview`
+in glc_v3's own environment; reverted the `S14_SURFACE_MODEL` code from
+`runtime.py` entirely, since it's now unnecessary. Re-ran the full 3-turn
+flow clean against this final config — all 3 turns succeeded on the first
+try. This is a cleaner architecture, not just a workaround: one source of
+truth for "which model" (glc_v3), consistent behavior across S14Code's two
+independent call sites, and no S14Code code needed at all for this fix.
+
 ## 6. Adversarial live-agent tests (§2.7) — scripts/adversarial_cctv.py
 
 All three attacked the LIVE agent via `/v1/agent/runs` -> `/v1/runs/{id}/composed`

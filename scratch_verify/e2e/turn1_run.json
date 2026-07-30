@@ -1,9 +1,9 @@
 {
-  "run_id": "run-283304eb1b25",
+  "run_id": "run-a9068684190f",
   "status": "completed",
   "answer": "",
-  "provider": "openrouter",
-  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "provider": "gemini_1",
+  "model": "gemini-3.1-flash-lite-preview",
   "graph": {
     "finished": true,
     "nodes": {
@@ -22,14 +22,14 @@
             "choices": [
               {
                 "id": "evt_001",
-                "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+                "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
               },
               {
                 "id": "evt_006",
-                "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+                "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
               }
             ],
-            "incidents": [
+            "Matching incident records (from local search over a CCTV events log)": [
               {
                 "id": "evt_001",
                 "camera": "gate",
@@ -49,7 +49,7 @@
             ]
           },
           "text": "",
-          "raw": "{\n  \"choices\": [\n    {\n      \"id\": \"evt_001\",\n      \"label\": \"evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"label\": \"evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low\"\n    }\n  ],\n  \"incidents\": [\n    {\n      \"id\": \"evt_001\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:14:03\",\n      \"motion_zone\": \"entrance\",\n      \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n      \"severity\": \"medium\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:16:32\",\n      \"motion_zone\": \"exit\",\n      \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n      \"severity\": \"low\"\n    }\n  ]\n}",
+          "raw": "{\n  \"choices\": [\n    {\n      \"id\": \"evt_001\",\n      \"label\": \"evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"label\": \"evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)\"\n    }\n  ],\n  \"Matching incident records (from local search over a CCTV events log)\": [\n    {\n      \"id\": \"evt_001\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:14:03\",\n      \"motion_zone\": \"entrance\",\n      \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n      \"severity\": \"medium\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:16:32\",\n      \"motion_zone\": \"exit\",\n      \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n      \"severity\": \"low\"\n    }\n  ]\n}",
           "provider": "cerebras",
           "model": "gpt-oss-120b",
           "agent": "content"
@@ -67,14 +67,23 @@
         "state": "succeeded",
         "result": {
           "agent": "ui_composer",
-          "provider": "openrouter",
-          "model": "nvidia/nemotron-3-super-120b-a12b:free",
-          "raw_surface": "{\n  \"root\": \"root\",\n  \"components\": [\n    {\n      \"id\": \"heading\",\n      \"type\": \"Text\",\n      \"variant\": \"heading\",\n      \"text\": { \"$bind\": \"/title\" }\n    },\n    {\n      \"id\": \"body\",\n      \"type\": \"Text\",\n      \"variant\": \"body\",\n      \"text\": { \"$bind\": \"/summary\" }\n    },\n    {\n      \"id\": \"cardsColumn\",\n      \"type\": \"Column\",\n      \"children\": [ \"card0\", \"card1\" ]\n    },\n    {\n      \"id\": \"col0\",\n      \"type\": \"Column\",\n      \"children\": [ \"cam0\", \"time0\", \"sum0\", \"stat0\", \"btn0\" ]\n    },\n    {\n      \"id\": \"cam0\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/0/camera\" }\n    },\n    {\n      \"id\": \"time0\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/0/time\" }\n    },\n    {\n      \"id\": \"sum0\",\n      \"type\": \"Text\",\n      \"variant\": \"body\",\n      \"text\": { \"$bind\": \"/incidents/0/summary\" }\n    },\n    {\n      \"id\": \"stat0\",\n      \"type\": \"StatTile\",\n      \"label\": \"Severity\",\n      \"value\": { \"$bind\": \"/incidents/0/severity\" },\n      \"tone\": \"warn\"\n    },\n    {\n      \"id\": \"btn0\",\n      \"type\": \"Button\",\n      \"label\": \"Select evt_001\",\n      \"onPress\": { \"action\": \"request_data\" }\n    },\n    {\n      \"id\": \"card0\",\n      \"type\": \"Card\",\n      \"title\": \"Incident\",\n      \"children\": [ \"col0\" ]\n    },\n    {\n      \"id\": \"col1\",\n      \"type\": \"Column\",\n      \"children\": [ \"cam1\", \"time1\", \"sum1\", \"stat1\", \"btn1\" ]\n    },\n    {\n      \"id\": \"cam1\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/1/camera\" }\n    },\n    {\n      \"id\": \"time1\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/1/time\" }\n    },\n    {\n      \"id\": \"sum1\",\n      \"type\": \"Text\",\n      \"variant\": \"body\",\n      \"text\": { \"$bind\": \"/incidents/1/summary\" }\n    },\n    {\n      \"id\": \"stat1\",\n      \"type\": \"StatTile\",\n      \"label\": \"Severity\",\n      \"value\": { \"$bind\": \"/incidents/1/severity\" },\n      \"tone\": \"good\"\n    },\n    {\n      \"id\": \"btn1\",\n      \"type\": \"Button\",\n      \"label\": \"Select evt_006\",\n      \"onPress\": { \"action\": \"request_data\" }\n    },\n    {\n      \"id\": \"card1\",\n      \"type\": \"Card\",\n      \"title\": \"Incident\",\n      \"children\": [ \"col1\" ]\n    }\n  ]\n}",
+          "provider": "gemini_1",
+          "model": "gemini-3.1-flash-lite-preview",
+          "raw_surface": "{\"root\":\"root\",\"components\":[{\"id\":\"root\",\"type\":\"Column\",\"children\":[\"title\",\"summary\",\"list\"]},{\"id\":\"title\",\"type\":\"Text\",\"variant\":\"heading\",\"text\":{\"$bind\":\"/title\"}},{\"id\":\"summary\",\"type\":\"Text\",\"variant\":\"body\",\"text\":{\"$bind\":\"/summary\"}},{\"id\":\"list\",\"type\":\"List\",\"children\":[\"card_0\",\"card_1\"]},{\"id\":\"card_0\",\"type\":\"Card\",\"title\":\"evt_001\",\"children\":[\"c0_row\",\"c0_btn\"]},{\"id\":\"c0_row\",\"type\":\"Row\",\"align\":\"center\",\"justify\":\"spaceBetween\",\"children\":[\"c0_time\",\"c0_sev\"]},{\"id\":\"c0_time\",\"type\":\"Text\",\"variant\":\"body\",\"text\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/0/time\"}},{\"id\":\"c0_sev\",\"type\":\"StatTile\",\"label\":\"Severity\",\"value\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/0/severity\"}},{\"id\":\"c0_btn\",\"type\":\"Button\",\"label\":{\"$bind\":\"/choice_0_label\"},\"onPress\":{\"action\":\"request_data\"}},{\"id\":\"card_1\",\"type\":\"Card\",\"title\":\"evt_006\",\"children\":[\"c1_row\",\"c1_btn\"]},{\"id\":\"c1_row\",\"type\":\"Row\",\"align\":\"center\",\"justify\":\"spaceBetween\",\"children\":[\"c1_time\",\"c1_sev\"]},{\"id\":\"c1_time\",\"type\":\"Text\",\"variant\":\"body\",\"text\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/1/time\"}},{\"id\":\"c1_sev\",\"type\":\"StatTile\",\"label\":\"Severity\",\"value\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/1/severity\"}},{\"id\":\"c1_btn\",\"type\":\"Button\",\"label\":{\"$bind\":\"/choice_1_label\"},\"onPress\":{\"action\":\"request_data\"}}]}",
           "surface": {
             "root": "root",
             "components": [
               {
-                "id": "heading",
+                "id": "root",
+                "type": "Column",
+                "children": [
+                  "title",
+                  "summary",
+                  "list"
+                ]
+              },
+              {
+                "id": "title",
                 "type": "Text",
                 "variant": "heading",
                 "text": {
@@ -82,7 +91,7 @@
                 }
               },
               {
-                "id": "body",
+                "id": "summary",
                 "type": "Text",
                 "variant": "body",
                 "text": {
@@ -90,132 +99,70 @@
                 }
               },
               {
-                "id": "cardsColumn",
-                "type": "Column",
+                "id": "list",
+                "type": "List",
                 "children": [
-                  "card0",
-                  "card1"
+                  "card_0",
+                  "card_1"
                 ]
               },
               {
-                "id": "col0",
-                "type": "Column",
+                "id": "card_0",
+                "type": "Card",
+                "title": "evt_001",
                 "children": [
-                  "cam0",
-                  "time0",
-                  "sum0",
-                  "stat0",
-                  "btn0"
+                  "c0_row",
+                  "c0_btn"
                 ]
               },
               {
-                "id": "cam0",
-                "type": "Text",
-                "variant": "caption",
-                "text": {
-                  "$bind": "/incidents/0/camera"
-                }
+                "id": "c0_row",
+                "type": "Row",
+                "align": "center",
+                "justify": "spaceBetween",
+                "children": [
+                  "c0_time",
+                  "c0_sev"
+                ]
               },
               {
-                "id": "time0",
-                "type": "Text",
-                "variant": "caption",
-                "text": {
-                  "$bind": "/incidents/0/time"
-                }
-              },
-              {
-                "id": "sum0",
-                "type": "Text",
-                "variant": "body",
-                "text": {
-                  "$bind": "/incidents/0/summary"
-                }
-              },
-              {
-                "id": "stat0",
-                "type": "StatTile",
-                "label": "Severity",
-                "value": {
-                  "$bind": "/incidents/0/severity"
-                },
-                "tone": "warn"
-              },
-              {
-                "id": "btn0",
+                "id": "c0_btn",
                 "type": "Button",
-                "label": "Select evt_001",
+                "label": {
+                  "$bind": "/choice_0_label"
+                },
                 "onPress": {
                   "action": "request_data"
                 }
               },
               {
-                "id": "card0",
+                "id": "card_1",
                 "type": "Card",
-                "title": "Incident",
+                "title": "evt_006",
                 "children": [
-                  "col0"
+                  "c1_row",
+                  "c1_btn"
                 ]
               },
               {
-                "id": "col1",
-                "type": "Column",
+                "id": "c1_row",
+                "type": "Row",
+                "align": "center",
+                "justify": "spaceBetween",
                 "children": [
-                  "cam1",
-                  "time1",
-                  "sum1",
-                  "stat1",
-                  "btn1"
+                  "c1_time",
+                  "c1_sev"
                 ]
               },
               {
-                "id": "cam1",
-                "type": "Text",
-                "variant": "caption",
-                "text": {
-                  "$bind": "/incidents/1/camera"
-                }
-              },
-              {
-                "id": "time1",
-                "type": "Text",
-                "variant": "caption",
-                "text": {
-                  "$bind": "/incidents/1/time"
-                }
-              },
-              {
-                "id": "sum1",
-                "type": "Text",
-                "variant": "body",
-                "text": {
-                  "$bind": "/incidents/1/summary"
-                }
-              },
-              {
-                "id": "stat1",
-                "type": "StatTile",
-                "label": "Severity",
-                "value": {
-                  "$bind": "/incidents/1/severity"
-                },
-                "tone": "good"
-              },
-              {
-                "id": "btn1",
+                "id": "c1_btn",
                 "type": "Button",
-                "label": "Select evt_006",
+                "label": {
+                  "$bind": "/choice_1_label"
+                },
                 "onPress": {
                   "action": "request_data"
                 }
-              },
-              {
-                "id": "card1",
-                "type": "Card",
-                "title": "Incident",
-                "children": [
-                  "col1"
-                ]
               }
             ],
             "dataModel": {
@@ -230,32 +177,32 @@
               "item_count": 0,
               "source_count": 0,
               "subjects": [
-                "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-                "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+                "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+                "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
               ],
               "timeline": [
                 {
-                  "time": "947",
+                  "time": "1016",
                   "label": "run_started"
                 },
                 {
-                  "time": "948",
+                  "time": "1017",
                   "label": "graph_patched"
                 },
                 {
-                  "time": "949",
+                  "time": "1018",
                   "label": "task_started content"
                 },
                 {
-                  "time": "950",
+                  "time": "1019",
                   "label": "task_succeeded content"
                 },
                 {
-                  "time": "951",
+                  "time": "1020",
                   "label": "graph_patched"
                 },
                 {
-                  "time": "952",
+                  "time": "1021",
                   "label": "task_started surface"
                 }
               ],
@@ -264,16 +211,16 @@
               "choices": [
                 {
                   "id": "evt_001",
-                  "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+                  "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
                 },
                 {
                   "id": "evt_006",
-                  "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+                  "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
                 }
               ],
-              "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-              "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low",
-              "incidents": [
+              "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+              "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)",
+              "Matching incident records (from local search over a CCTV events log)": [
                 {
                   "id": "evt_001",
                   "camera": "gate",
@@ -310,32 +257,32 @@
             "item_count": 0,
             "source_count": 0,
             "subjects": [
-              "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-              "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+              "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+              "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
             ],
             "timeline": [
               {
-                "time": "947",
+                "time": "1016",
                 "label": "run_started"
               },
               {
-                "time": "948",
+                "time": "1017",
                 "label": "graph_patched"
               },
               {
-                "time": "949",
+                "time": "1018",
                 "label": "task_started content"
               },
               {
-                "time": "950",
+                "time": "1019",
                 "label": "task_succeeded content"
               },
               {
-                "time": "951",
+                "time": "1020",
                 "label": "graph_patched"
               },
               {
-                "time": "952",
+                "time": "1021",
                 "label": "task_started surface"
               }
             ],
@@ -344,16 +291,16 @@
             "choices": [
               {
                 "id": "evt_001",
-                "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+                "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
               },
               {
                 "id": "evt_006",
-                "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+                "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
               }
             ],
-            "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-            "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low",
-            "incidents": [
+            "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+            "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)",
+            "Matching incident records (from local search over a CCTV events log)": [
               {
                 "id": "evt_001",
                 "camera": "gate",
@@ -378,20 +325,51 @@
             "severity": "medium"
           },
           "validator": {
-            "proposed": 17,
-            "accepted": 17,
-            "rejected": 0,
-            "ok": true,
-            "rejections": [],
-            "dangling_child_refs": [],
+            "proposed": 14,
+            "accepted": 10,
+            "rejected": 4,
+            "ok": false,
+            "rejections": [
+              {
+                "component_id": "c0_time",
+                "field": "text",
+                "invariant": "data-not-code",
+                "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/0/time'"
+              },
+              {
+                "component_id": "c0_sev",
+                "field": "value",
+                "invariant": "data-not-code",
+                "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/0/severity'"
+              },
+              {
+                "component_id": "c1_time",
+                "field": "text",
+                "invariant": "data-not-code",
+                "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/1/time'"
+              },
+              {
+                "component_id": "c1_sev",
+                "field": "value",
+                "invariant": "data-not-code",
+                "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/1/severity'"
+              }
+            ],
+            "dangling_child_refs": [
+              "c0_sev",
+              "c0_time",
+              "c1_sev",
+              "c1_time"
+            ],
             "component_types": [
               "Button",
               "Card",
               "Column",
-              "StatTile",
+              "List",
+              "Row",
               "Text"
             ],
-            "component_count": 17
+            "component_count": 10
           },
           "upstream_used": [],
           "parse_ok": true
@@ -421,24 +399,24 @@
         "agent": "ui_composer",
         "skill": "compose_surface",
         "state": "succeeded",
-        "provider": "openrouter",
-        "model": "nvidia/nemotron-3-super-120b-a12b:free"
+        "provider": "gemini_1",
+        "model": "gemini-3.1-flash-lite-preview"
       }
     }
   },
   "events": [
     {
-      "sequence": 947,
+      "sequence": 1016,
       "kind": "run_started",
       "node_id": null,
       "payload": {}
     },
     {
-      "sequence": 948,
+      "sequence": 1017,
       "kind": "graph_patched",
       "node_id": null,
       "payload": {
-        "trigger_event": 947,
+        "trigger_event": 1016,
         "reason": "first frontier selected for compose_answer",
         "add": [
           "content"
@@ -451,7 +429,7 @@
       }
     },
     {
-      "sequence": 949,
+      "sequence": 1018,
       "kind": "task_started",
       "node_id": "content",
       "payload": {
@@ -460,7 +438,7 @@
       }
     },
     {
-      "sequence": 950,
+      "sequence": 1019,
       "kind": "task_succeeded",
       "node_id": "content",
       "payload": {
@@ -468,14 +446,14 @@
           "choices": [
             {
               "id": "evt_001",
-              "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+              "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
             },
             {
               "id": "evt_006",
-              "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+              "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
             }
           ],
-          "incidents": [
+          "Matching incident records (from local search over a CCTV events log)": [
             {
               "id": "evt_001",
               "camera": "gate",
@@ -495,18 +473,18 @@
           ]
         },
         "text": "",
-        "raw": "{\n  \"choices\": [\n    {\n      \"id\": \"evt_001\",\n      \"label\": \"evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"label\": \"evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low\"\n    }\n  ],\n  \"incidents\": [\n    {\n      \"id\": \"evt_001\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:14:03\",\n      \"motion_zone\": \"entrance\",\n      \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n      \"severity\": \"medium\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:16:32\",\n      \"motion_zone\": \"exit\",\n      \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n      \"severity\": \"low\"\n    }\n  ]\n}",
+        "raw": "{\n  \"choices\": [\n    {\n      \"id\": \"evt_001\",\n      \"label\": \"evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"label\": \"evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)\"\n    }\n  ],\n  \"Matching incident records (from local search over a CCTV events log)\": [\n    {\n      \"id\": \"evt_001\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:14:03\",\n      \"motion_zone\": \"entrance\",\n      \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n      \"severity\": \"medium\"\n    },\n    {\n      \"id\": \"evt_006\",\n      \"camera\": \"gate\",\n      \"time\": \"2026-04-23T12:16:32\",\n      \"motion_zone\": \"exit\",\n      \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n      \"severity\": \"low\"\n    }\n  ]\n}",
         "provider": "cerebras",
         "model": "gpt-oss-120b",
         "agent": "content"
       }
     },
     {
-      "sequence": 951,
+      "sequence": 1020,
       "kind": "graph_patched",
       "node_id": null,
       "payload": {
-        "trigger_event": 950,
+        "trigger_event": 1019,
         "reason": "content produced; compose a validated A2UI surface from the real outcome",
         "add": [
           "surface"
@@ -524,7 +502,7 @@
       }
     },
     {
-      "sequence": 952,
+      "sequence": 1021,
       "kind": "task_started",
       "node_id": "surface",
       "payload": {
@@ -533,19 +511,28 @@
       }
     },
     {
-      "sequence": 953,
+      "sequence": 1022,
       "kind": "task_succeeded",
       "node_id": "surface",
       "payload": {
         "agent": "ui_composer",
-        "provider": "openrouter",
-        "model": "nvidia/nemotron-3-super-120b-a12b:free",
-        "raw_surface": "{\n  \"root\": \"root\",\n  \"components\": [\n    {\n      \"id\": \"heading\",\n      \"type\": \"Text\",\n      \"variant\": \"heading\",\n      \"text\": { \"$bind\": \"/title\" }\n    },\n    {\n      \"id\": \"body\",\n      \"type\": \"Text\",\n      \"variant\": \"body\",\n      \"text\": { \"$bind\": \"/summary\" }\n    },\n    {\n      \"id\": \"cardsColumn\",\n      \"type\": \"Column\",\n      \"children\": [ \"card0\", \"card1\" ]\n    },\n    {\n      \"id\": \"col0\",\n      \"type\": \"Column\",\n      \"children\": [ \"cam0\", \"time0\", \"sum0\", \"stat0\", \"btn0\" ]\n    },\n    {\n      \"id\": \"cam0\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/0/camera\" }\n    },\n    {\n      \"id\": \"time0\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/0/time\" }\n    },\n    {\n      \"id\": \"sum0\",\n      \"type\": \"Text\",\n      \"variant\": \"body\",\n      \"text\": { \"$bind\": \"/incidents/0/summary\" }\n    },\n    {\n      \"id\": \"stat0\",\n      \"type\": \"StatTile\",\n      \"label\": \"Severity\",\n      \"value\": { \"$bind\": \"/incidents/0/severity\" },\n      \"tone\": \"warn\"\n    },\n    {\n      \"id\": \"btn0\",\n      \"type\": \"Button\",\n      \"label\": \"Select evt_001\",\n      \"onPress\": { \"action\": \"request_data\" }\n    },\n    {\n      \"id\": \"card0\",\n      \"type\": \"Card\",\n      \"title\": \"Incident\",\n      \"children\": [ \"col0\" ]\n    },\n    {\n      \"id\": \"col1\",\n      \"type\": \"Column\",\n      \"children\": [ \"cam1\", \"time1\", \"sum1\", \"stat1\", \"btn1\" ]\n    },\n    {\n      \"id\": \"cam1\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/1/camera\" }\n    },\n    {\n      \"id\": \"time1\",\n      \"type\": \"Text\",\n      \"variant\": \"caption\",\n      \"text\": { \"$bind\": \"/incidents/1/time\" }\n    },\n    {\n      \"id\": \"sum1\",\n      \"type\": \"Text\",\n      \"variant\": \"body\",\n      \"text\": { \"$bind\": \"/incidents/1/summary\" }\n    },\n    {\n      \"id\": \"stat1\",\n      \"type\": \"StatTile\",\n      \"label\": \"Severity\",\n      \"value\": { \"$bind\": \"/incidents/1/severity\" },\n      \"tone\": \"good\"\n    },\n    {\n      \"id\": \"btn1\",\n      \"type\": \"Button\",\n      \"label\": \"Select evt_006\",\n      \"onPress\": { \"action\": \"request_data\" }\n    },\n    {\n      \"id\": \"card1\",\n      \"type\": \"Card\",\n      \"title\": \"Incident\",\n      \"children\": [ \"col1\" ]\n    }\n  ]\n}",
+        "provider": "gemini_1",
+        "model": "gemini-3.1-flash-lite-preview",
+        "raw_surface": "{\"root\":\"root\",\"components\":[{\"id\":\"root\",\"type\":\"Column\",\"children\":[\"title\",\"summary\",\"list\"]},{\"id\":\"title\",\"type\":\"Text\",\"variant\":\"heading\",\"text\":{\"$bind\":\"/title\"}},{\"id\":\"summary\",\"type\":\"Text\",\"variant\":\"body\",\"text\":{\"$bind\":\"/summary\"}},{\"id\":\"list\",\"type\":\"List\",\"children\":[\"card_0\",\"card_1\"]},{\"id\":\"card_0\",\"type\":\"Card\",\"title\":\"evt_001\",\"children\":[\"c0_row\",\"c0_btn\"]},{\"id\":\"c0_row\",\"type\":\"Row\",\"align\":\"center\",\"justify\":\"spaceBetween\",\"children\":[\"c0_time\",\"c0_sev\"]},{\"id\":\"c0_time\",\"type\":\"Text\",\"variant\":\"body\",\"text\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/0/time\"}},{\"id\":\"c0_sev\",\"type\":\"StatTile\",\"label\":\"Severity\",\"value\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/0/severity\"}},{\"id\":\"c0_btn\",\"type\":\"Button\",\"label\":{\"$bind\":\"/choice_0_label\"},\"onPress\":{\"action\":\"request_data\"}},{\"id\":\"card_1\",\"type\":\"Card\",\"title\":\"evt_006\",\"children\":[\"c1_row\",\"c1_btn\"]},{\"id\":\"c1_row\",\"type\":\"Row\",\"align\":\"center\",\"justify\":\"spaceBetween\",\"children\":[\"c1_time\",\"c1_sev\"]},{\"id\":\"c1_time\",\"type\":\"Text\",\"variant\":\"body\",\"text\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/1/time\"}},{\"id\":\"c1_sev\",\"type\":\"StatTile\",\"label\":\"Severity\",\"value\":{\"$bind\":\"/Matching incident records (from local search over a CCTV events log)/1/severity\"}},{\"id\":\"c1_btn\",\"type\":\"Button\",\"label\":{\"$bind\":\"/choice_1_label\"},\"onPress\":{\"action\":\"request_data\"}}]}",
         "surface": {
           "root": "root",
           "components": [
             {
-              "id": "heading",
+              "id": "root",
+              "type": "Column",
+              "children": [
+                "title",
+                "summary",
+                "list"
+              ]
+            },
+            {
+              "id": "title",
               "type": "Text",
               "variant": "heading",
               "text": {
@@ -553,7 +540,7 @@
               }
             },
             {
-              "id": "body",
+              "id": "summary",
               "type": "Text",
               "variant": "body",
               "text": {
@@ -561,132 +548,70 @@
               }
             },
             {
-              "id": "cardsColumn",
-              "type": "Column",
+              "id": "list",
+              "type": "List",
               "children": [
-                "card0",
-                "card1"
+                "card_0",
+                "card_1"
               ]
             },
             {
-              "id": "col0",
-              "type": "Column",
+              "id": "card_0",
+              "type": "Card",
+              "title": "evt_001",
               "children": [
-                "cam0",
-                "time0",
-                "sum0",
-                "stat0",
-                "btn0"
+                "c0_row",
+                "c0_btn"
               ]
             },
             {
-              "id": "cam0",
-              "type": "Text",
-              "variant": "caption",
-              "text": {
-                "$bind": "/incidents/0/camera"
-              }
+              "id": "c0_row",
+              "type": "Row",
+              "align": "center",
+              "justify": "spaceBetween",
+              "children": [
+                "c0_time",
+                "c0_sev"
+              ]
             },
             {
-              "id": "time0",
-              "type": "Text",
-              "variant": "caption",
-              "text": {
-                "$bind": "/incidents/0/time"
-              }
-            },
-            {
-              "id": "sum0",
-              "type": "Text",
-              "variant": "body",
-              "text": {
-                "$bind": "/incidents/0/summary"
-              }
-            },
-            {
-              "id": "stat0",
-              "type": "StatTile",
-              "label": "Severity",
-              "value": {
-                "$bind": "/incidents/0/severity"
-              },
-              "tone": "warn"
-            },
-            {
-              "id": "btn0",
+              "id": "c0_btn",
               "type": "Button",
-              "label": "Select evt_001",
+              "label": {
+                "$bind": "/choice_0_label"
+              },
               "onPress": {
                 "action": "request_data"
               }
             },
             {
-              "id": "card0",
+              "id": "card_1",
               "type": "Card",
-              "title": "Incident",
+              "title": "evt_006",
               "children": [
-                "col0"
+                "c1_row",
+                "c1_btn"
               ]
             },
             {
-              "id": "col1",
-              "type": "Column",
+              "id": "c1_row",
+              "type": "Row",
+              "align": "center",
+              "justify": "spaceBetween",
               "children": [
-                "cam1",
-                "time1",
-                "sum1",
-                "stat1",
-                "btn1"
+                "c1_time",
+                "c1_sev"
               ]
             },
             {
-              "id": "cam1",
-              "type": "Text",
-              "variant": "caption",
-              "text": {
-                "$bind": "/incidents/1/camera"
-              }
-            },
-            {
-              "id": "time1",
-              "type": "Text",
-              "variant": "caption",
-              "text": {
-                "$bind": "/incidents/1/time"
-              }
-            },
-            {
-              "id": "sum1",
-              "type": "Text",
-              "variant": "body",
-              "text": {
-                "$bind": "/incidents/1/summary"
-              }
-            },
-            {
-              "id": "stat1",
-              "type": "StatTile",
-              "label": "Severity",
-              "value": {
-                "$bind": "/incidents/1/severity"
-              },
-              "tone": "good"
-            },
-            {
-              "id": "btn1",
+              "id": "c1_btn",
               "type": "Button",
-              "label": "Select evt_006",
+              "label": {
+                "$bind": "/choice_1_label"
+              },
               "onPress": {
                 "action": "request_data"
               }
-            },
-            {
-              "id": "card1",
-              "type": "Card",
-              "title": "Incident",
-              "children": [
-                "col1"
-              ]
             }
           ],
           "dataModel": {
@@ -701,32 +626,32 @@
             "item_count": 0,
             "source_count": 0,
             "subjects": [
-              "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-              "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+              "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+              "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
             ],
             "timeline": [
               {
-                "time": "947",
+                "time": "1016",
                 "label": "run_started"
               },
               {
-                "time": "948",
+                "time": "1017",
                 "label": "graph_patched"
               },
               {
-                "time": "949",
+                "time": "1018",
                 "label": "task_started content"
               },
               {
-                "time": "950",
+                "time": "1019",
                 "label": "task_succeeded content"
               },
               {
-                "time": "951",
+                "time": "1020",
                 "label": "graph_patched"
               },
               {
-                "time": "952",
+                "time": "1021",
                 "label": "task_started surface"
               }
             ],
@@ -735,16 +660,16 @@
             "choices": [
               {
                 "id": "evt_001",
-                "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+                "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
               },
               {
                 "id": "evt_006",
-                "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+                "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
               }
             ],
-            "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-            "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low",
-            "incidents": [
+            "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+            "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)",
+            "Matching incident records (from local search over a CCTV events log)": [
               {
                 "id": "evt_001",
                 "camera": "gate",
@@ -781,32 +706,32 @@
           "item_count": 0,
           "source_count": 0,
           "subjects": [
-            "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-            "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+            "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+            "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
           ],
           "timeline": [
             {
-              "time": "947",
+              "time": "1016",
               "label": "run_started"
             },
             {
-              "time": "948",
+              "time": "1017",
               "label": "graph_patched"
             },
             {
-              "time": "949",
+              "time": "1018",
               "label": "task_started content"
             },
             {
-              "time": "950",
+              "time": "1019",
               "label": "task_succeeded content"
             },
             {
-              "time": "951",
+              "time": "1020",
               "label": "graph_patched"
             },
             {
-              "time": "952",
+              "time": "1021",
               "label": "task_started surface"
             }
           ],
@@ -815,16 +740,16 @@
           "choices": [
             {
               "id": "evt_001",
-              "label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium"
+              "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
             },
             {
               "id": "evt_006",
-              "label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low"
+              "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
             }
           ],
-          "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23T12:14:03 \u2013 Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right \u2013 Severity: medium",
-          "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23T12:16:32 \u2013 A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway \u2013 Severity: low",
-          "incidents": [
+          "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
+          "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)",
+          "Matching incident records (from local search over a CCTV events log)": [
             {
               "id": "evt_001",
               "camera": "gate",
@@ -849,31 +774,62 @@
           "severity": "medium"
         },
         "validator": {
-          "proposed": 17,
-          "accepted": 17,
-          "rejected": 0,
-          "ok": true,
-          "rejections": [],
-          "dangling_child_refs": [],
+          "proposed": 14,
+          "accepted": 10,
+          "rejected": 4,
+          "ok": false,
+          "rejections": [
+            {
+              "component_id": "c0_time",
+              "field": "text",
+              "invariant": "data-not-code",
+              "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/0/time'"
+            },
+            {
+              "component_id": "c0_sev",
+              "field": "value",
+              "invariant": "data-not-code",
+              "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/0/severity'"
+            },
+            {
+              "component_id": "c1_time",
+              "field": "text",
+              "invariant": "data-not-code",
+              "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/1/time'"
+            },
+            {
+              "component_id": "c1_sev",
+              "field": "value",
+              "invariant": "data-not-code",
+              "reason": "invalid JSON Pointer '/Matching incident records (from local search over a CCTV events log)/1/severity'"
+            }
+          ],
+          "dangling_child_refs": [
+            "c0_sev",
+            "c0_time",
+            "c1_sev",
+            "c1_time"
+          ],
           "component_types": [
             "Button",
             "Card",
             "Column",
-            "StatTile",
+            "List",
+            "Row",
             "Text"
           ],
-          "component_count": 17
+          "component_count": 10
         },
         "upstream_used": [],
         "parse_ok": true
       }
     },
     {
-      "sequence": 954,
+      "sequence": 1023,
       "kind": "graph_patched",
       "node_id": null,
       "payload": {
-        "trigger_event": 953,
+        "trigger_event": 1022,
         "reason": "Gemini composed a surface the S14 validator accepted",
         "add": [],
         "connect": [],

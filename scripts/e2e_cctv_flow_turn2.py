@@ -34,12 +34,24 @@ def main() -> None:
     turn1 = json.loads((OUT_DIR / "turn1_composed.json").read_text())
 
     # Mirrors cctv_app.html's R.Button onclick: the label text IS the next
-    # turn's user message (choose(lab) -> runTurn(lab)).
+    # turn's user message (choose(lab) -> runTurn(lab)). The label prop can be
+    # a literal string OR a {"$bind": "/pointer"} — cctv_app.html's real
+    # resolve() handles both; this test script needs the same.
+    def resolve(value, dm):
+        if isinstance(value, dict) and "$bind" in value:
+            ptr = value["$bind"].lstrip("/").split("/")
+            cur = dm
+            for p in ptr:
+                cur = cur.get(p) if isinstance(cur, dict) else None
+            return cur
+        return value
+
+    dm1 = turn1["surface"]["dataModel"]
     buttons = [c for c in turn1["surface"]["components"] if c["type"] == "Button"]
     if not buttons:
         raise SystemExit("turn 1 composed no Button components to pick from — rerun turn1 first")
-    picked_label = buttons[0]["label"]
-    match = re.search(r"evt_\d{3}", picked_label)
+    picked_label = resolve(buttons[0]["label"], dm1)
+    match = re.search(r"evt_\d{3}", picked_label or "")
     if not match:
         raise SystemExit(f"picked label {picked_label!r} has no literal event id — turn1's instruction wasn't followed")
     picked = next(e for e in EVENTS if e["id"] == match.group(0))
