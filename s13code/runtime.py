@@ -16,7 +16,7 @@ from typing import Any
 
 from s13code.core.live_graph import GraphPatch, GraphStore, LiveGraphExecutor, TaskSpec
 from s13code.core.memory import MemoryKind, MemoryRecord, MemoryScope, MemoryStore, Principal, SourceRef
-from s13code.core.memory.embeddings import OllamaNomicEmbedder
+from s13code.core.memory.embeddings import DeterministicEmbedder, OllamaNomicEmbedder
 from s13code.planner import ConstrainedGraphPatchPlanner
 from s13code.tools import fetch_url, sandbox_files, sandbox_path, web_search
 
@@ -259,7 +259,18 @@ class S13Runtime:
         # between those profiles.
         self.root = root or Path(os.getenv("S13_DATA_DIR", str(Path.home() / ".s13code")))
         self.root.mkdir(parents=True, exist_ok=True)
-        self.memory = MemoryStore(self.root / "memory.sqlite", embedder=OllamaNomicEmbedder())
+        # S14 Part-2 addition (this branch only, not upstream): MemoryStore.write
+        # embeds every prompt unconditionally (runtime.py's own run() below),
+        # independent of S13_LIVE_SEMANTIC_CHUNKING — confirmed live on Render:
+        # with no Ollama reachable, OllamaNomicEmbedder() hard-fails every
+        # /v1/agent/runs call with ConnectionRefusedError before the graph ever
+        # runs. Default stays "ollama" (byte-identical to prior behavior) so
+        # local dev is untouched; the hosted deployment opts into
+        # S13_EMBEDDER=deterministic, a real, dependency-free, already-tested
+        # embedder (embeddings.py's DeterministicEmbedder, used by the test
+        # suite) instead of a stub.
+        embedder = DeterministicEmbedder() if os.getenv("S13_EMBEDDER", "ollama") == "deterministic" else OllamaNomicEmbedder()
+        self.memory = MemoryStore(self.root / "memory.sqlite", embedder=embedder)
         self.graph = GraphStore(self.root / "graph.sqlite")
 
     def close(self) -> None:

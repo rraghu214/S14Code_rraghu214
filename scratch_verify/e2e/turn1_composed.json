@@ -1,5 +1,5 @@
 {
-  "run_id": "run-a9068684190f",
+  "run_id": "run-ac6ef01320b4",
   "finished": true,
   "surface": {
     "root": "root",
@@ -9,8 +9,9 @@
         "type": "Column",
         "children": [
           "title",
-          "summary",
-          "list"
+          "intro",
+          "card_0",
+          "card_1"
         ]
       },
       {
@@ -22,38 +23,21 @@
         }
       },
       {
-        "id": "summary",
+        "id": "intro",
         "type": "Text",
         "variant": "body",
         "text": {
-          "$bind": "/summary"
+          "$bind": "/intro"
         }
-      },
-      {
-        "id": "list",
-        "type": "List",
-        "children": [
-          "card_0",
-          "card_1"
-        ]
       },
       {
         "id": "card_0",
         "type": "Card",
-        "title": "evt_001",
+        "title": "Incident evt_001",
         "children": [
-          "c0_row",
+          "c0_details",
+          "c0_stat",
           "c0_btn"
-        ]
-      },
-      {
-        "id": "c0_row",
-        "type": "Row",
-        "align": "center",
-        "justify": "spaceBetween",
-        "children": [
-          "c0_time",
-          "c0_sev"
         ]
       },
       {
@@ -69,20 +53,11 @@
       {
         "id": "card_1",
         "type": "Card",
-        "title": "evt_006",
+        "title": "Incident evt_006",
         "children": [
-          "c1_row",
+          "c1_details",
+          "c1_stat",
           "c1_btn"
-        ]
-      },
-      {
-        "id": "c1_row",
-        "type": "Row",
-        "align": "center",
-        "justify": "spaceBetween",
-        "children": [
-          "c1_time",
-          "c1_sev"
         ]
       },
       {
@@ -97,9 +72,9 @@
       }
     ],
     "dataModel": {
-      "title": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.",
+      "title": "Incident Cards Near Gate",
       "goal": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.",
-      "summary": "User asked: \"did anything unusual happen near the gate yesterday?\"\n\nMatching incident records (from local search over a CCTV events log):\n[\n  {\n    \"id\": \"evt_001\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:14:03\",\n    \"motion_zone\": \"entrance\",\n    \"summary\": \"Two armed soldiers stand guard at a closed gate, with an airplane visible behind a fence and a building on the right.\",\n    \"severity\": \"medium\"\n  },\n  {\n    \"id\": \"evt_006\",\n    \"camera\": \"gate\",\n    \"time\": \"2026-04-23T12:16:32\",\n    \"motion_zone\": \"exit\",\n    \"summary\": \"A person in dark clothing stands on a sidewalk in front of a building with arched doorways, viewed through an archway.\",\n    \"severity\": \"low\"\n  }\n]\n\nCompose an interface showing these as selectable incident cards (thumbnail-style: camera, time, a one-line summary, a StatTile for severity). Each card's tappable choice label MUST include the literal event id (e.g. \"evt_003\") somewhere in its text, verbatim, so it can be identified later. Do not fabricate any incident not listed above.",
+      "summary": "Select an incident to view details.",
       "results": [],
       "items": [],
       "metrics": [],
@@ -108,49 +83,50 @@
       "item_count": 0,
       "source_count": 0,
       "subjects": [
-        "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
-        "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
+        "Incident evt_001 \u2013 Two armed soldiers stand guard",
+        "Incident evt_006 \u2013 Person in dark clothing on sidewalk"
       ],
       "timeline": [
         {
-          "time": "1016",
+          "time": "1064",
           "label": "run_started"
         },
         {
-          "time": "1017",
+          "time": "1065",
           "label": "graph_patched"
         },
         {
-          "time": "1018",
+          "time": "1066",
           "label": "task_started content"
         },
         {
-          "time": "1019",
+          "time": "1067",
           "label": "task_succeeded content"
         },
         {
-          "time": "1020",
+          "time": "1068",
           "label": "graph_patched"
         },
         {
-          "time": "1021",
+          "time": "1069",
           "label": "task_started surface"
         }
       ],
       "progress_value": 1,
       "progress_max": 2,
+      "intro": "Select an incident to view details.",
       "choices": [
         {
           "id": "evt_001",
-          "label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)"
+          "label": "Incident evt_001 \u2013 Two armed soldiers stand guard"
         },
         {
           "id": "evt_006",
-          "label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)"
+          "label": "Incident evt_006 \u2013 Person in dark clothing on sidewalk"
         }
       ],
-      "choice_0_label": "evt_001 \u2013 gate \u2013 2026-04-23 12:14 \u2013 Two armed soldiers stand guard (severity: medium)",
-      "choice_1_label": "evt_006 \u2013 gate \u2013 2026-04-23 12:16 \u2013 Person in dark clothing on sidewalk (severity: low)",
+      "choice_0_label": "Incident evt_001 \u2013 Two armed soldiers stand guard",
+      "choice_1_label": "Incident evt_006 \u2013 Person in dark clothing on sidewalk",
       "Matching incident records (from local search over a CCTV events log)": [
         {
           "id": "evt_001",
@@ -176,7 +152,7 @@
       "severity": "medium"
     }
   },
-  "component_count": 10,
+  "component_count": 7,
   "clean": true,
   "provider": "gemini_1",
   "model": "gemini-3.1-flash-lite-preview"
