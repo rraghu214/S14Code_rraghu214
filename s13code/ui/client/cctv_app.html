@@ -21,6 +21,10 @@
   .hint .hint-title{font-weight:600;margin-bottom:6px}
   .hint ol{margin:0;padding-left:18px;line-height:1.7}
   .hint b{color:var(--accent)}
+  .seclog{font-family:var(--font-mono);font-size:11.5px;border-radius:8px;padding:8px 12px;margin:0 0 12px;display:none}
+  .seclog.ok{background:var(--green-soft);color:var(--green-ink);border:1px solid var(--green)}
+  .seclog.bad{background:var(--red-soft);color:var(--red-ink);border:1px solid var(--red)}
+  .seclog .row{margin:2px 0}
   .startbar{display:flex;gap:8px;margin:10px 0 18px}
   .startbar input{flex:1;padding:11px 14px;border:1px solid var(--rule-strong);border-radius:10px;font-size:15px;font-family:var(--font-sans)}
   .startbar input:focus{outline:none;border-color:var(--accent)}
@@ -85,6 +89,7 @@
     <button id="ask">Ask</button>
   </div>
   <div class="status" id="status"></div>
+  <div class="seclog" id="seclog"></div>
   <div class="screen"><div id="mount"><div class="empty">Ask about recent camera activity to begin — see the "Try it" steps above.</div></div></div>
   <div class="crumbs" id="crumbs"></div>
 </div>
@@ -226,7 +231,19 @@ function render(surface){const byId={};surface.components.forEach(c=>byId[c.id]=
 // conversation folded into the prompt text (S14 §2.4 — there is no live
 // graph-resume between turns). The local filter step (§2.2) never becomes a
 // graph tool call; it only shapes the goal text the content role sees. ----
-function setStatus(html){document.getElementById("status").innerHTML=html;}
+// pill: a FIXED, code-authored literal HTML string (e.g. '<span class="pill
+// good">composed</span>') — never derived from user input, model output, or
+// server data. Any dynamic value (typed text, provider names, rejection
+// reasons) must go through `parts`, appended as real text nodes, never
+// concatenated into the HTML string — that's the exact bug a manual
+// adversarial test caught: userText used to be string-concatenated directly
+// into innerHTML here, so a typed <img onerror=...> payload executed
+// immediately on submit, with no model or validator involved at all.
+function setStatus(pill, ...parts){
+  const el = document.getElementById("status");
+  el.innerHTML = pill;
+  for(const p of parts){ if(p) el.append(T(" " + p)); }
+}
 function crumbs(){document.getElementById("crumbs").textContent = convo.length? "conversation: "+convo.join("  ›  ") : "";}
 
 function buildGoal(userText){
@@ -259,21 +276,42 @@ function buildGoal(userText){
     `and whose summary explains a notification will be sent for this incident. This is the last step; do not add further choices.`;
 }
 
+// Surfaces the compose_surface node's OWN validator result (proposed vs.
+// accepted vs. rejected, with reasons) straight from the same POST
+// /v1/agent/runs response already fetched below — no extra call needed.
+// This is the real, live invariant check: if the model attempts a catalog
+// violation (adversarial prompt), the rejection shows here, on-screen,
+// not just in a terminal.
+function showSecurityLog(run){
+  const el = document.getElementById("seclog");
+  const validator = run && run.graph && run.graph.nodes && run.graph.nodes.surface &&
+    run.graph.nodes.surface.result && run.graph.nodes.surface.result.validator;
+  if(!validator){ el.style.display="none"; return; }
+  const {proposed=0, accepted=0, rejected=0, rejections=[]} = validator;
+  el.className = "seclog " + (rejected>0 ? "bad" : "ok");
+  el.style.display = "block";
+  const head = `validator: ${proposed} proposed · ${accepted} accepted · ${rejected} rejected`;
+  const rows = rejections.map(r=>`  ✗ ${r.component_id||"?"}.${r.field||"?"} [${r.invariant||"?"}] — ${r.reason||""}`);
+  el.textContent = [head, ...rows].join("\n");
+}
+
 async function runTurn(userText){
   convo.push(userText);
   crumbs();
-  setStatus('<span class="pill think">composing…</span> the agent is writing an interface for: "'+userText+'"');
+  setStatus('<span class="pill think">composing…</span>', 'the agent is writing an interface for: "'+userText+'"');
   const goal = buildGoal(userText);
   const res = await fetch(API+"/v1/agent/runs",{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({prompt:goal, respond_as:"ui", tenant_id:"course", project_id:"s14-cctv", user_id:"investigator", agent_id:"app"})});
   const run = await res.json();
   lastRun = {run_id: run.run_id};
+  showSecurityLog(run);
   const c = await (await fetch(API+"/v1/runs/"+run.run_id+"/composed")).json();
   if(c.surface && c.surface.components && c.surface.components.length){
     render(c.surface);
-    setStatus('<span class="pill good">'+(c.provider||"gemini")+' · '+c.component_count+' components · clean='+c.clean+'</span> composed live, validated in-catalog');
+    setStatus('<span class="pill good">composed</span>',
+      (c.provider||"gemini")+' · '+c.component_count+' components · clean='+c.clean+' · composed live, validated in-catalog');
   } else {
-    setStatus('<span class="pill bad">no interface composed</span> '+(c.rejections?JSON.stringify(c.rejections):""));
+    setStatus('<span class="pill bad">no interface composed</span>', c.rejections?JSON.stringify(c.rejections):"");
   }
 }
 function choose(label){ if(label) runTurn(label); }
@@ -285,10 +323,10 @@ async function approve(params, summary){
       args: params, pending_params: params, pending_summary: summary})});
   if(res.ok){
     const body = await res.json();
-    setStatus('<span class="pill good">approved</span> '+body.reason);
+    setStatus('<span class="pill good">approved</span>', body.reason);
   } else {
     const body = await res.json().catch(()=>({detail:res.statusText}));
-    setStatus('<span class="pill bad">refused</span> '+(body.detail||res.status));
+    setStatus('<span class="pill bad">refused</span>', body.detail||res.status);
   }
 }
 
