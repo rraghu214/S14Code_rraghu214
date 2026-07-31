@@ -816,8 +816,20 @@ class S13Runtime:
             # results array any list/table/tabs/chart can bind to, a numeric metric
             # series, a timeline of the run's own journal, and progress. No invented
             # domain fields — the real data is exposed generically.
+            # S14 Part-2 fix (this branch only, not upstream): /title is meant
+            # to be a short heading (the system prompt below literally says
+            # 'Start with a Text (variant "heading") bound to /title') — but
+            # when content_structured has no title (a legitimate choice for a
+            # "pick one of these" goal, since the content role's own schema
+            # prioritizes 'choices' over 'title'/'intro' for that shape),
+            # this fallback used to be the ENTIRE raw prompt. compose_surface
+            # then naively bound the heading to /title with no way to know it
+            # wasn't short, rendering the whole prompt as a giant heading —
+            # reproduced live. First line, capped, reads as an actual title.
+            _title_line = prompt.strip().split("\n", 1)[0].strip()
+            _short_title = (_title_line[:140] + "…") if len(_title_line) > 140 else _title_line
             data_model: dict[str, Any] = {
-                "title": prompt,
+                "title": _short_title or prompt,
                 "goal": prompt,
                 "summary": summary or prompt,
                 "results": [{"label": item["label"], "detail": item["detail"]} for item in outcomes],
